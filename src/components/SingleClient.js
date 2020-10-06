@@ -15,7 +15,6 @@ const Individual = ({ renovacion }) => {
             timeout: '50000'
             
         })
-        console.log(nuevaSolicitud)
         generateDoc(nuevaSolicitud.data);
     }
 

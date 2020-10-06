@@ -3,10 +3,7 @@ import Individual from './SingleClient'
 import axios from 'axios'
 import { Dropdown } from 'semantic-ui-react'
 import Loader from 'react-loader-spinner'
-// import BlockUi from 'react-block-ui'
-// import { Loader, Types } from 'react-loaders'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import generateDoc from '../components/GeneratorDocs'
 
 const TableList = () => {
 
@@ -86,23 +83,11 @@ const TableList = () => {
         })
     }
 
-    const getID = async (CODIGO) => {
-        console.log(CODIGO)
-        const nuevaSolicitud = await axios.get('http://localhost:81/renovacion', {
-            params: {
-                CODIGO
-            },
-            timeout: '50000'
-
-        })
-        console.log(nuevaSolicitud)
-        generateDoc(nuevaSolicitud.data);
-    }
 
     return (
 
         <div className="centerItems">
-            <button type="button" onClick={() => getID(201820450)} > click me </button>
+            
             <div className="solicitudIndividual">
                 <Dropdown
                     disabled={loaderSpin}
