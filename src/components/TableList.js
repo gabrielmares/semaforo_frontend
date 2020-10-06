@@ -49,7 +49,7 @@ const TableList = () => {
         if ((sucursal > 0) && pending) {
             const get = async () => {
                 try {
-                    const api = await axios.get('http://localhost:81/listas', {
+                    const api = await axios.get(`${process.env.REACT_APP_SERVIDOR}/listas`, {
                         params: {
                             sucursal
                         }

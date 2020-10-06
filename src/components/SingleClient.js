@@ -8,8 +8,7 @@ const Individual = ({ renovacion }) => {
     if (!renovacion) return false
 
     const handlePrint = async CODIGO => {
-        // console.log(CODIGO)
-        const nuevaSolicitud = await axios.get('http://localhost:81/renovacion', {
+        const nuevaSolicitud = await axios.get(`${process.env.REACT_APP_SERVIDOR}/renovacion`, {
             params: {
                 CODIGO
             },
@@ -17,7 +16,7 @@ const Individual = ({ renovacion }) => {
             
         })
         console.log(nuevaSolicitud)
-        // generateDoc(nuevaSolicitud.data);
+        generateDoc(nuevaSolicitud.data);
     }
 
 
