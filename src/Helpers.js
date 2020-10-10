@@ -22,3 +22,26 @@ export function ParseDate(fecnac) {
     return (dayI.join("") + "/" + MonthI.join("") + "/" + yearI.join(""))
 
 }
+
+// FUNCION QUE MODIFICA LA FECHA QUE INSERTAN DESDE LOS INPUT DATE
+//LA CONVIERTE A FORMATO YYYYMMDD, PARA REALIZAR LAS CONSULTAS A LA BD
+export function CambiarFecha(FechaDeEntrada) {
+    let FechaRegistrada = FechaDeEntrada;
+    if (isNaN(FechaRegistrada)) {
+        FechaRegistrada = Date.now();
+    }
+    let formatter = new Intl.DateTimeFormat('es-MX', {
+        weekday: 'long',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+        timeZone: 'UTC'
+    });
+    let NuevaFecha = formatter.formatToParts(FechaRegistrada);
+    let NuevaFechaParse = NuevaFecha[6].value + "" + NuevaFecha[4]["value"] + "" + NuevaFecha[2]["value"];
+    return NuevaFechaParse;
+}
