@@ -3,9 +3,10 @@ import { ParseDate } from '../Helpers'
 
 // siguiendo el ejemplo de la libreria easy-template-x
 async function generateDoc(cliente) {
-    const { edoResidencia, munResidencia, pobResidencia, general, ContactoCliente, ColResidencia, EdoNacimiento, DESTINOCREDITO, ULTIMOCREDITO } = cliente;
-    console.log(ULTIMOCREDITO)
-    const { CODIGO, NOMBRE, NOMBRES, PATERNO, MATERNO, RFC, CURP, TELEFONO, DOMICILIO, CODPOS, FINCENTRO, FINGRUPO, FECNAC, ACTIV, NOIFE } = general[0]
+    const { edoResidencia: { EDORESIDENCIA }, munResidencia: { MUNRESIDENCIA }, pobResidencia: { POBRESIDENCIA },
+        generales, familiar, ColResidencia: { COLRESIDENCIA }, nacestado: { EDONACIMIENTO }, actividad: { ACTIVIDAD }, credito: { MONTO }, vendedor } = cliente;
+    console.log(cliente)
+    const { CODIGO, NOMBRE, NOMBRES, PATERNO, MATERNO, RFC, CURP, TELEFONO, DOMICILIO, CODPOS, FINCENTRO, FINGRUPO, FECNAC, ACTIV, NOIFE } = generales
     let data = {
         CODIGO,
         NOMBRE,
@@ -19,17 +20,18 @@ async function generateDoc(cliente) {
         CODPOS,
         FINCENTRO,
         FINGRUPO,
-        ULTIMOCREDITO,
+        ULTIMOCREDITO: MONTO,
         FecNac: ParseDate(FECNAC),
         ACTIV,
         NOIFE,
-        edoResidencia,
-        munResidencia,
-        pobResidencia,
-        ContactoCliente,
-        ColResidencia,
-        EdoNacimiento,
-        DESTINOCREDITO        
+        ASESOR: vendedor.NOMBRE,
+        edoResidencia: EDORESIDENCIA.trim(),
+        munResidencia: MUNRESIDENCIA.trim(),
+        pobResidencia: POBRESIDENCIA.trim(),
+        ContactoCliente: familiar.CONTACTO || "vacio",
+        ColResidencia: COLRESIDENCIA.trim(),
+        EdoNacimiento: EDONACIMIENTO.trim(),
+        DESTINOCREDITO: ACTIVIDAD
     };
     const doc = await fetch('./Solicitud.docx');
     const template = await doc.blob();
