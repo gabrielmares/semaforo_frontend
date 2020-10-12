@@ -52,3 +52,14 @@ tbody {
   
 }
 
+.filtros{
+  padding: 0.3rem;
+  margin-left: 11rem;
+  margin-right: 4rem;
+  /* padding-bottom: 1rem; */
+  /* padding: 1rem; */
+}
+
+.selectSucursal{
+  height: 3rem;
+}
