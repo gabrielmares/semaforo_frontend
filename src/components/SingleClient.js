@@ -21,6 +21,7 @@ const Individual = ({ renovacion }) => {
 
     return (
         <div className="solicitudIndividual" >
+            
             <Table celled striped structured>
                 <Table.Header>
                     <Table.Row>
@@ -44,7 +45,7 @@ const Individual = ({ renovacion }) => {
                                 <Table.Cell width={2}>{CENTRO}</Table.Cell>
                                 <Table.Cell width={2}>{GRUPO}</Table.Cell>
                                 <Table.Cell width={4}><b>{CONTRATO}, $ {SALDO.toFixed(2)}</b></Table.Cell>
-                                <Table.Cell width={2}>{PORCPAGADO.toFixed(2)}%</Table.Cell>
+                                <Table.Cell width={2}>{PORCPAGADO.toFixed(2) || "vacio"} %</Table.Cell>
                                 <Table.Cell width={2}>{newDate}</Table.Cell>
                                 <Table.Cell width={3}><label onClick={() => handlePrint(CODIGO)}><Icon color="blue" name="file word" size="large" /></label></Table.Cell>
                             </Table.Row>
