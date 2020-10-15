@@ -46,10 +46,11 @@ const TableList = () => {
         sucursal: null,
         from: "",
         to: "",
-        lastCredit: CambiarFecha(sumaFechas(new Date(), -15)).replaceAll('-', "")
+        lastCredit: CambiarFecha(sumaFechas(new Date(), -15)).replaceAll('-', ""),
+        centro: ''
     })
 
-    const { sucursal } = filter;
+    const { sucursal, centro } = filter;
     const { from, to } = date
 
     const { pending, listado, noRows } = clientes;
@@ -59,15 +60,16 @@ const TableList = () => {
             const get = async () => {
                 try {
                     console.log('llamando a la api')
-                    const api = await axios.get(`${process.env.REACT_APP_SERVIDOR}/listas`, {
+                    const api = await axios.get(`${process.env.REACT_APP_SERVIDOR}/api/req/listas`, {
                         params: {
                             // filter
                             sucursal,
                             from: filter.from,
                             to: filter.to,
-                            lastCredit: filter.lastCredit
+                            lastCredit: filter.lastCredit,
+                            centro: parseInt(filter.centro)
                         },
-                        timeout: 350000
+                        timeout: 950000
                     });
                     setClientes({
                         pending: false,
@@ -128,13 +130,15 @@ const TableList = () => {
 
     }
 
+
+
     return (
 
         <div className="centerItems">
             <div className="filtros">
-                <Grid relaxed>
+                <Grid relaxed columns={7}>
                     <Grid.Row>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
                             <Dropdown
                                 className='selectSucursal'
                                 disabled={loaderSpin}
@@ -145,7 +149,20 @@ const TableList = () => {
                                 onChange={(e, value) => change(e, value)}
                             />
                         </Grid.Column>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
+                            <InputSemantic
+                                style={{ width: '183px', paddingLeft: '1.3rem' }}
+                                className='selectSucursal'
+                                disabled={loaderSpin}
+                                type='number'
+                                key='centro'
+                                name='centro'
+                                value={centro}
+                                placeholder="Centro"
+                                onChange={(e) => pickers(e)}
+                            />
+                        </Grid.Column>
+                        <Grid.Column width={3}>
                             <InputSemantic
                                 disabled={loaderSpin}
                                 type='date'
@@ -155,7 +172,7 @@ const TableList = () => {
                                 onChange={(e) => pickers(e)}
                             />
                         </Grid.Column>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
                             <InputSemantic
                                 disabled={loaderSpin}
                                 type='date'
@@ -165,14 +182,15 @@ const TableList = () => {
                                 onChange={(e) => pickers(e)}
                             />
                         </Grid.Column>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
                             <SemanticButton
+                                style={{ height: '3rem' }}
                                 disabled={loaderSpin}
-                                color='violet'
+                                color='facebook'
                                 onClick={(e) => handleSubmit(e)}
                             >Buscar</SemanticButton>
                         </Grid.Column>
-                        
+
                     </Grid.Row>
                 </Grid>
 
